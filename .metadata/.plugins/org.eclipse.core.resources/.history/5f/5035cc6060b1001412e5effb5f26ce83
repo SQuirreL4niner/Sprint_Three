@@ -35,7 +35,7 @@ public class alterTable {
 			//Create Statement object
 			stmt= con.createStatement();
 
-			//enable transaction by setting auto-commit to false
+			//enable transcation by setting auto-commit to false
 
 			con.setAutoCommit(false);
 			
