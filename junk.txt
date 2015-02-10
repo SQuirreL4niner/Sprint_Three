@@ -1,0 +1,34 @@
+			//String sql2 = "ALTER TABLE Clearance add CONSTRAINT Sec_Qry FOREIGN KEY (secClear) REFERENCES Users (secClear)";
+			//ResultSet rs = stmt.executeQuery(sql2);
+			
+		     // String sql = "SELECT uName, pWord FROM Users WHERE secClear = 100";
+		     // ResultSet rs2 = stmt.executeQuery(sql);
+		      
+
+			//String sql2 = "SELECT "
+			/*while(rs.next()){
+				//  Retrieve by column name
+
+				String uname = rs.getString("UNAME");
+
+
+				//  Display values
+
+				System.out.print(", Username: " + uname);
+			
+			}*/
+			////////////////////////  create a simple table with a primary key		//////////////////////////////////////////////////
+			
+			
+		   //String sql = "CREATE TABLE Account (Acct_iD INTEGER, Users_iD INTEGER, INDEX Users_index (iD), FOREIGN KEY (iD)";
+
+			
+			/*String test = "Create TABLE Parent ( id INT NOT NULL, PRIMARY KEY (id)); "
+					+ "/ "
+					+ "Create TABLE child ( id INT, parent_id INT, INDEX par_ind (parent_id), FOREIGN KEY (parent_id) REFERENCES parent_(id) ON DELETE CASCADE)";
+			//String test_2 = "
+		    //stmt.executeUpdate(test);*/
+			
+			
+			
+			

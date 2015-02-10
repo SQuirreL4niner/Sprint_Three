@@ -1,0 +1,97 @@
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+
+public class alterTable {
+
+
+
+
+
+
+	private Connection con;
+	private Statement stmt;
+	private ResultSet rs;
+
+
+	public void insertRecords() throws SQLException{
+
+		try {
+
+
+			//////////////////////  JDBC CONNECTION with ORACLE						///////////////////////////////////////////////
+
+			//load and register JDBC Driver for Oracle DBMS
+			Class.forName("oracle.jdbc.OracleDriver");
+
+			//Create connection object
+			con= DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","Admin","none");
+
+			//Create Statement object
+			stmt= con.createStatement();
+
+			//enable transcation by setting auto-commit to false
+
+			con.setAutoCommit(false);
+			
+			String sql = "AlTER TABLE Users add CONSTRAINT secClear FOREIGN KEY (Uname) REFERENCES Users (Uname)";
+			ResultSet rs = stmt.executeQuery(sql);
+
+			while(rs.next()){
+				//  Retrieve by column name
+
+				String uname = rs.getString("UNAME");
+
+
+				//  Display values
+
+				System.out.print(", Username: " + uname);
+
+			}
+			rs.close();
+
+
+
+			con.commit();
+
+		} catch (ClassNotFoundException e) {
+			con.rollback();
+			e.printStackTrace();
+
+		} catch (SQLException e) {
+			con.rollback();
+			e.printStackTrace();
+
+		}
+
+		finally{
+
+			con.close();
+		}
+
+
+	}
+
+
+		
+
+
+
+public static void main(String[] args) throws SQLException {
+
+	alterTable trans= new alterTable();
+
+	trans.insertRecords();
+}	
+
+
+
+
+
+
+}

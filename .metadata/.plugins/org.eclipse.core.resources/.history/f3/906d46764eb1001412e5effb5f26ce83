@@ -1,0 +1,136 @@
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+
+public class alterTable {
+
+
+
+
+
+
+	private Connection con;
+	private Statement stmt;
+	private ResultSet rs;
+
+
+	public void insertRecords() throws SQLException{
+
+		try {
+
+
+			//////////////////////  JDBC CONNECTION with ORACLE						///////////////////////////////////////////////
+
+			//load and register JDBC Driver for Oracle DBMS
+			Class.forName("oracle.jdbc.OracleDriver");
+
+			//Create connection object
+			con= DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","Admin","none");
+
+			//Create Statement object
+			stmt= con.createStatement();
+
+			//enable transcation by setting auto-commit to false
+
+			con.setAutoCommit(false);
+			
+			//String sql2 = "ALTER TABLE Clearance add CONSTRAINT Sec_Qry FOREIGN KEY (secClear) REFERENCES Users (secClear)";
+			//ResultSet rs = stmt.executeQuery(sql2);
+			
+		     // String sql = "SELECT uName, pWord FROM Users WHERE secClear = 100";
+		     // ResultSet rs2 = stmt.executeQuery(sql);
+		      
+
+			//String sql2 = "SELECT "
+			/*while(rs.next()){
+				//  Retrieve by column name
+
+				String uname = rs.getString("UNAME");
+
+
+				//  Display values
+
+				System.out.print(", Username: " + uname);
+			
+			}*/
+			////////////////////////  create a simple table with a primary key		//////////////////////////////////////////////////
+			
+			
+		   //String sql = "CREATE TABLE Account (Acct_iD INTEGER, Users_iD INTEGER, INDEX Users_index (iD), FOREIGN KEY (iD)";
+
+			
+			/*String test = "Create TABLE Parent ( id INT NOT NULL, PRIMARY KEY (id)); "
+					+ "/ "
+					+ "Create TABLE child ( id INT, parent_id INT, INDEX par_ind (parent_id), FOREIGN KEY (parent_id) REFERENCES parent_(id) ON DELETE CASCADE)";
+			//String test_2 = "
+		    //stmt.executeUpdate(test);*/
+			
+			
+			
+			
+			
+			
+			String test = "CREATE TABLE supplier (" +
+					"supplier_id numeric(10) not null, "+
+					"supplier_name varchar2(50) not null, "+
+					"contact_name varchar2(50), "+
+					"CONSTRAINT supplier_pk PRIMARY KEY (supplier_id, supplier_name) "+
+					"		); "+
+					"/"
+					"CREATE TABLE products "+
+					"( product_id numeric(10) not null, "+
+					"supplier_id numeric(10) not null, "+
+					"supplier_name varchar2(50) not null, "+
+					"CONSTRAINT fk_supplier_comp "+
+					"FOREIGN KEY (supplier_id, supplier_name) "+
+					"REFERENCES supplier(supplier_id, supplier_name) "+
+					")";
+			stmt.executeUpdate(test);
+		    System.out.println("Created table in given database...");
+
+
+
+
+			con.commit();
+
+		} catch (ClassNotFoundException e) {
+			con.rollback();
+			e.printStackTrace();
+
+		} catch (SQLException e) {
+			con.rollback();
+			e.printStackTrace();
+
+		}
+
+		finally{
+
+			con.close();
+		}
+
+
+	}
+
+
+		
+
+
+
+public static void main(String[] args) throws SQLException {
+
+	alterTable trans= new alterTable();
+
+	trans.insertRecords();
+}	
+
+
+
+
+
+
+}

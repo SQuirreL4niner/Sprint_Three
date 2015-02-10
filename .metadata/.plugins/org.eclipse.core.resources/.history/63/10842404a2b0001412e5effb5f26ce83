@@ -1,0 +1,109 @@
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+
+public class alterTable {
+
+
+
+
+
+
+	private Connection con;
+	private Statement stmt;
+	private ResultSet rs;
+
+
+	public void insertRecords() throws SQLException{
+
+		try {
+
+
+			//////////////////////  JDBC CONNECTION with ORACLE						///////////////////////////////////////////////
+
+			//load and register JDBC Driver for Oracle DBMS
+			Class.forName("oracle.jdbc.OracleDriver");
+
+			//Create connection object
+			con= DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","Admin","none");
+
+			//Create Statement object
+			stmt= con.createStatement();
+
+			//enable transcation by setting auto-commit to false
+
+			con.setAutoCommit(false);
+			
+			/*String sql = "ALTER TABLE Clearance add CONSTRAINT Sec_Qry FOREIGN KEY (iD, pWord) REFERENCES Users (iD, pWord)";
+			ResultSet rs = stmt.executeQuery(sql);*/
+
+			//String sql2 = "SELECT "
+			/*while(rs.next()){
+				//  Retrieve by column name
+
+				String uname = rs.getString("UNAME");
+
+
+				//  Display values
+
+				System.out.print(", Username: " + uname);
+			
+			}*/
+			////////////////////////  create a simple table with a primary key		//////////////////////////////////////////////////
+			
+			
+		   String sql = "CREATE TABLE Users (iD INTEGER not NULL AUTO_INCREMENT, uName VARCHAR2(4000) not NULL, pWord VARCHAR2(4000) not NULL, secClear INTEGER not NULL, PRIMARY KEY (iD))";
+				   							/*"uName VARCHAR2(4000) not NULL, " +
+				   							"pWord VARCHAR2(4000) not NULL, " +
+				   							"secClear INTEGER not NULL, " +
+				   							"PRIMARY KEY iD)";*/
+		    stmt.executeUpdate(sql);
+		    System.out.println("Created table in given database...");
+
+		
+
+
+
+			con.commit();
+
+		} catch (ClassNotFoundException e) {
+			con.rollback();
+			e.printStackTrace();
+
+		} catch (SQLException e) {
+			con.rollback();
+			e.printStackTrace();
+
+		}
+
+		finally{
+
+			con.close();
+		}
+
+
+	}
+
+
+		
+
+
+
+public static void main(String[] args) throws SQLException {
+
+	alterTable trans= new alterTable();
+
+	trans.insertRecords();
+}	
+
+
+
+
+
+
+}
